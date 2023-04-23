@@ -31,9 +31,6 @@ function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * myArray.length);
     return myArray[randomNumber];
 }
-// player and computer selections
-let playerSelection = prompt("What is your selection?", "");
-let computerSelection = getComputerChoice();
 // this function formats the user's selection so that it has a capitalized first letter only
 function formatString(playerSelection) {
     let restOfString = playerSelection.slice(1);
@@ -42,6 +39,24 @@ function formatString(playerSelection) {
     restOfString = restOfString.toLowerCase();
     return firstLetter + restOfString;
 }
-// print to console
-console.log("You chose " + formatString(playerSelection) + " while computer chose " + computerSelection);
-console.log(playRound(formatString(playerSelection), computerSelection));
+// play 5 games
+function game() {
+    // starting stats 
+    let playerWins = 0;
+    let computerWins = 0;
+    while((playerWins < 3 && computerWins < 3)) {
+        // player and computer selections
+        let playerSelection = prompt("What is your selection?", "");
+        let computerSelection = getComputerChoice();
+        let result = playRound(formatString(playerSelection), computerSelection);
+        if (result.includes("You win")) {
+            playerWins++;
+            console.log("Player Win #" + playerWins);
+        } else {
+            computerWins++;
+            console.log("Computer Win #" + computerWins);
+        }
+    }
+    return playerWins > computerWins ? "You won the game." : "You lost the game."
+}
+console.log(game());
