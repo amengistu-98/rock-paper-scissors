@@ -59,10 +59,10 @@ let playerWins = 0;
 let computerCounter = document.querySelector('#computer-wins');
 let playerCounter = document.querySelector('#player-wins');
 function updateComputerDisplay() {
-    computerCounter.innerHTML = computerWins;
+    computerCounter.innerHTML = "Computer Wins: " + computerWins;
 }
 function updatePlayerDisplay() {
-    playerCounter.innerHTML = playerWins;
+    playerCounter.innerHTML = "Player Wins: " + playerWins;
 }
 // play 5 games
 async function game(numberOfGames) {
