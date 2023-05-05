@@ -22,6 +22,8 @@ function playRound(playerSelection, computerSelection) {
         } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
             let message = "You win! " + playerSelection + " cuts " + computerSelection + "!";
             return message;
+        } else {
+            return "Invalid selection";
         }
     }
 }
@@ -31,32 +33,63 @@ function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * myArray.length);
     return myArray[randomNumber];
 }
-// this function formats the user's selection so that it has a capitalized first letter only
-function formatString(playerSelection) {
-    let restOfString = playerSelection.slice(1);
-    let firstLetter = playerSelection.charAt(0);
-    firstLetter = firstLetter.toUpperCase();
-    restOfString = restOfString.toLowerCase();
-    return firstLetter + restOfString;
+// function to get player's choice
+function getPlayerChoice() {
+    return new Promise((resolve, reject) => {
+        const rockButton = document.querySelector('#rock');
+        const paperButton = document.querySelector('#paper');
+        const scissorsButton = document.querySelector('#scissors');
+        
+        rockButton.addEventListener('click', () => {
+          resolve('Rock');
+        });
+        
+        paperButton.addEventListener('click', () => {
+          resolve('Paper');
+        });
+        
+        scissorsButton.addEventListener('click', () => {
+          resolve('Scissors');
+        });
+    });
+}
+// update display functions
+let computerWins = 0;
+let playerWins = 0;
+let computerCounter = document.querySelector('#computer-wins');
+let playerCounter = document.querySelector('#player-wins');
+function updateComputerDisplay() {
+    computerCounter.innerHTML = computerWins;
+}
+function updatePlayerDisplay() {
+    playerCounter.innerHTML = playerWins;
 }
 // play 5 games
-function game() {
-    // starting stats 
-    let playerWins = 0;
-    let computerWins = 0;
-    while((playerWins < 3 && computerWins < 3)) {
-        // player and computer selections
-        let playerSelection = prompt("What is your selection?", "");
+async function game(numberOfGames) {
+    const winningNum = Math.floor(numberOfGames / 2) + 1;
+    // starting display
+    updateComputerDisplay();
+    updatePlayerDisplay();
+    for (let gamesPlayed = 0; 
+        gamesPlayed < numberOfGames && 
+        playerWins < winningNum && 
+        computerWins < winningNum;
+        gamesPlayed++) {
+        let playerSelection = await getPlayerChoice();
         let computerSelection = getComputerChoice();
-        let result = playRound(formatString(playerSelection), computerSelection);
+        let result = playRound(playerSelection, computerSelection);
         if (result.includes("You win")) {
             playerWins++;
+            updatePlayerDisplay();
             console.log("Player Win #" + playerWins);
         } else {
             computerWins++;
+            updateComputerDisplay();
             console.log("Computer Win #" + computerWins);
         }
     }
     return playerWins > computerWins ? "You won the game." : "You lost the game."
 }
-console.log(game());
+(async function() {
+    console.log(await game(14));
+  })();
