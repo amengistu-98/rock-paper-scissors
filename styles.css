@@ -6,21 +6,28 @@ html {
 body {
     text-align: center;
 }
-.counters {
-    border: 2px solid yellow;
+.counter {
+    font-size: 1.8vw;
 }
 .buttons {
     color: whitesmoke;
-    width: 80px;
-    height: 20px;
-    border-radius: 5px;
+    width: 8vw;
+    height: 2vw;
+    border-radius: .75vw;
     border-color: #091E42;
     background-color: #091E42;
     color: #e5e7eb;
     font-size: smaller;
+    box-shadow: none;
+    border-style: solid;
+    font-size: 1vw;
 }
 #reset {
-    margin: 10px;
+    margin: 10vw;
     border-color: tomato;
     background-color: tomato;
+}
+.message-display {
+    margin: 10vw;
+    font-size: 2vw;
 }

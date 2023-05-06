@@ -1,7 +1,7 @@
 // write a function that plays a single round of Rock Paper Scissors.
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        let message = "It's a draw! You both selected " + computerSelection;
+        let message = "It's a draw! You both selected " + computerSelection + ".";
         return message;
     } else {
         if (playerSelection === "Scissors" && computerSelection === "Rock") {
@@ -58,6 +58,7 @@ let playerWins = 0;
 let gamesPlayed = 0;
 let computerCounter = document.querySelector('#computer-wins');
 let playerCounter = document.querySelector('#player-wins');
+let message = document.querySelector('#message');
 function updateComputerDisplay() {
     computerCounter.innerHTML = "Computer Wins: " + computerWins;
 }
@@ -92,14 +93,16 @@ async function game() {
         let playerSelection = await getPlayerChoice();
         let computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
-        if (result.includes("You win")) {
+        if (result.includes("draw")) {
+            message.innerHTML = result;
+        } else if (result.includes("You win")) {
             playerWins++;
             updatePlayerDisplay();
-            console.log("Player Win #" + playerWins);
+            message.innerHTML = result;
         } else {
             computerWins++;
             updateComputerDisplay();
-            console.log("Computer Win #" + computerWins);
+            message.innerHTML = result;
         }
     }
     return playerWins > computerWins ? "You won the game." : "You lost the game."
