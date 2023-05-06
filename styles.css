@@ -1,8 +1,26 @@
-* {
-    font-family: Arial, Helvetica, sans-serif;
+html {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
     background-image: linear-gradient(to right,#172B4D,#344563);
     color: whitesmoke;
 }
 body {
     text-align: center;
+}
+.counters {
+    border: 2px solid yellow;
+}
+.buttons {
+    color: whitesmoke;
+    width: 80px;
+    height: 20px;
+    border-radius: 5px;
+    border-color: #091E42;
+    background-color: #091E42;
+    color: #e5e7eb;
+    font-size: smaller;
+}
+#reset {
+    margin: 10px;
+    border-color: tomato;
+    background-color: tomato;
 }

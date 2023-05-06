@@ -53,9 +53,9 @@ function getPlayerChoice() {
         });
     });
 }
-// update display functions
 let computerWins = 0;
 let playerWins = 0;
+let gamesPlayed = 0;
 let computerCounter = document.querySelector('#computer-wins');
 let playerCounter = document.querySelector('#player-wins');
 function updateComputerDisplay() {
@@ -64,13 +64,27 @@ function updateComputerDisplay() {
 function updatePlayerDisplay() {
     playerCounter.innerHTML = "Player Wins: " + playerWins;
 }
+// reset 
+function resetGame() {
+    computerWins = 0;
+    playerWins = 0;
+    gamesPlayed = 0;
+    computerCounter.innerHTML = "Computer Wins: " + computerWins;
+    playerCounter.innerHTML = "Player Wins: " + playerWins;
+    (async function() {
+        console.log(await game());
+      })();
+}
+const resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click', resetGame);
 // play 5 games
-async function game(numberOfGames) {
+async function game() {
+    let numberOfGames = prompt("How many games would you like to play?")
     const winningNum = Math.floor(numberOfGames / 2) + 1;
     // starting display
     updateComputerDisplay();
     updatePlayerDisplay();
-    for (let gamesPlayed = 0; 
+    for (gamesPlayed = 0; 
         gamesPlayed < numberOfGames && 
         playerWins < winningNum && 
         computerWins < winningNum;
@@ -91,5 +105,5 @@ async function game(numberOfGames) {
     return playerWins > computerWins ? "You won the game." : "You lost the game."
 }
 (async function() {
-    console.log(await game(14));
+    console.log(await game());
   })();
